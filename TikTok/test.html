@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鬼滅之刃 無限之城</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 背景影片 -->
+    <video id="background-video" autoplay loop muted playsinline>
+        <source src="vd/001.mp4" type="video/mp4"> <!-- 替換為您的視頻文件 -->
+        您的瀏覽器不支援視頻標籤。
+    </video>
+
+    <header>
+        <h1>鬼滅之刃 無限之城</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#characters">角色介紹</a></li>
+            <li><a href="#story">劇情分析</a></li>
+            <li><a href="#gallery">圖片畫廊</a></li>
+            <li><a href="#contact">聯繫我們</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="characters">
+            <h2>角色介紹</h2>
+            <!-- 角色內容 -->
+        </section>
+        <section id="story">
+            <h2>劇情分析</h2>
+            <!-- 劇情內容 -->
+        </section>
+        <section id="gallery">
+            <h2>圖片畫廊</h2>
+            <!-- 圖片內容 -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 鬼滅之刃粉絲網站</p>
+    </footer>
+
+    <!-- 撥放聲音的彈出視窗 -->
+    <div id="sound-modal" class="modal">
+        <div class="modal-content">
+            <p>是否接受播放影片聲音？</p>
+            <button id="accept-sound" class="modal-button">接受</button>
+            <button id="decline-sound" class="modal-button">拒絕</button>
+        </div>
+    </div>
+
+    <script>
+        // 控制影片的音量與播放範圍
+        const video = document.getElementById('background-video');
+        const modal = document.getElementById('sound-modal');
+        const acceptSound = document.getElementById('accept-sound');
+        const declineSound = document.getElementById('decline-sound');
+
+        // 撥放範圍
+        const startTime = 14; // 14 秒開始
+        const endTime = 127; // 2:07 (127 秒) 停止
+
+        // 當影片可以播放時，跳轉到指定的開始時間
+        video.addEventListener('loadedmetadata', () => {
+            video.currentTime = startTime;
+        });
+
+        // 當影片播放到指定結束時間，重新跳轉到開始時間
+        video.addEventListener('timeupdate', () => {
+            if (video.currentTime >= endTime) {
+                video.currentTime = startTime; // 從頭開始循環播放
+            }
+        });
+
+        // 一開始靜音播放
+        video.muted = true;
+
+        // 點擊接受聲音按鈕，解除靜音
+        acceptSound.addEventListener('click', () => {
+            video.muted = false;
+            modal.style.display = 'none';
+        });
+
+        // 點擊拒絕聲音按鈕，保持靜音
+        declineSound.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // 自動彈出聲音選項
+        window.onload = function() {
+            modal.style.display = 'block';
+        };
+    </script>
+</body>
+</html>
